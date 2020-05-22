@@ -21,8 +21,7 @@ const rainbow = {
 	},
 };
 
-//Вариант №1:
-// Через слушатели на каждой кнопке
+//Вариант №1: через слушатели на каждой кнопке
 refs.start.addEventListener('click', e => {
 	toggleDisableBtn(e, refs.stop);
 	rainbow.start.bind(rainbow)();
@@ -40,8 +39,8 @@ function toggleDisableBtn(e, toggle) {
 	}
 }
 
-// Вариант №2: 
-// Если в refs добавит ссылку на js-rainbow-wrapper, то будет работать через всплытие событий. 
+// Вариант №2:
+// Если в refs добавит ссылку на js-rainbow-wrapper, то будет работать через всплытие событий.
 // refs.rainbowPanel.addEventListener('click', e => {
 // 	switch (e.target.dataset.action) {
 // 		case 'start':
