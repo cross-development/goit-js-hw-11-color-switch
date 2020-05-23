@@ -6,18 +6,10 @@ const colors = ['#FFFFFF', '#2196F3', '#4CAF50', '#FF9800', '#009688', '#795548'
 const refs = {
 	start: document.querySelector('button[data-action="start"]'),
 	stop: document.querySelector('button[data-action="stop"]'),
-	// rainbowPanel: document.querySelector('.js-rainbow-wrapper'),
 };
 
 const rainbow = {
-	isActive: false,
-
 	start() {
-		if (this.isActive) {
-			return;
-		}
-
-		this.isActive = true;
 		this.timerId = setInterval(() => {
 			const idxOfRandomColor = randomIntegerFromInterval(0, colors.length - 1);
 			document.body.style.backgroundColor = colors[idxOfRandomColor];
@@ -26,7 +18,6 @@ const rainbow = {
 
 	stop() {
 		clearInterval(this.timerId);
-		this.isActive = false;
 	},
 };
 
@@ -42,8 +33,10 @@ refs.stop.addEventListener('click', e => {
 });
 // Переключение деактивированной кнопки при нажатии на e.currentTarget
 function toggleDisableBtn(e, toggle) {
-	e.currentTarget.setAttribute('class', 'disabled');
-	toggle.removeAttribute('class');
+	if (!e.currentTarget.disabled) {
+		e.currentTarget.disabled = 'true';
+		toggle.removeAttribute('disabled');
+	}
 }
 
 // Вариант №2:
@@ -51,11 +44,11 @@ function toggleDisableBtn(e, toggle) {
 // refs.rainbowPanel.addEventListener('click', e => {
 // 	switch (e.target.dataset.action) {
 // 		case 'start':
-// 			toggleDisableBtn(e, refs.stop);
+// 			checkDisableBtn(e, refs.stop);
 // 			rainbow.start.bind(rainbow)();
 // 			break;
 // 		case 'stop':
-// 			toggleDisableBtn(e, refs.start);
+// 			checkDisableBtn(e, refs.start);
 // 			rainbow.stop.bind(rainbow)();
 // 			break;
 // 		default:
@@ -64,6 +57,8 @@ function toggleDisableBtn(e, toggle) {
 // });
 
 // function toggleDisableBtn(e, toggle) {
-// 	e.target.setAttribute('class', 'disabled');
-// 	toggle.removeAttribute('class');
+// 	if (!e.target.disabled) {
+// 		e.target.disabled = 'true';
+// 		toggle.removeAttribute('disabled');
+// 	}
 // }
